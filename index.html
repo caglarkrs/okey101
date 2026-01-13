@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>101 Okey - Web First Prototip</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">101</span>
+        <div class="brand-text">
+          <h1>Okey Masası</h1>
+          <p>Premium Web First Oyun Prototipi</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="pill" id="audioToggle">Sesli Sohbet: Açık</button>
+        <button class="pill" id="giftBtn">Hediye Gönder</button>
+        <button class="primary" id="scoreboardToggle">Yazboz</button>
+      </div>
+    </header>
+
+    <section class="lobby" id="lobby">
+      <div class="lobby-card">
+        <h2>Odaya Giriş</h2>
+        <p>Masa giriş bedeli <strong>50 altın</strong>. Kazanan <strong>200 altın</strong> alır.</p>
+        <div class="lobby-options">
+          <label>
+            Oyuncu Sayısı
+            <select id="playerCount">
+              <option value="3">3 Kişilik</option>
+              <option value="4" selected>4 Kişilik</option>
+            </select>
+          </label>
+          <label>
+            Oda Adı
+            <input type="text" id="roomName" value="Premium 101 Masası" />
+          </label>
+        </div>
+        <button class="primary" id="enterRoom">Masa Kur ve Gir</button>
+      </div>
+    </section>
+
+    <main class="table-wrapper" id="tableWrapper">
+      <div class="table-top">
+        <div class="room-info">
+          <h2 id="roomTitle">Premium 101 Masası</h2>
+          <p><span id="playerInfo">4 oyuncu</span> · Giriş 50 altın · Ödül 200 altın</p>
+        </div>
+        <div class="table-actions">
+          <button class="ghost" id="voteToggle">Elden Bitirdim</button>
+          <button class="ghost" id="newHandBtn">Yeni El Dağıt</button>
+        </div>
+      </div>
+
+      <div class="table-surface" id="tableSurface">
+        <div class="felt">
+          <div class="table-center">
+            <div class="center-stack">
+              <h3>Oyun Alanı</h3>
+              <p>Taşları buraya sürükleyip diz.</p>
+            </div>
+          </div>
+          <div class="table-dropzone" id="tableDropzone"></div>
+        </div>
+
+        <div class="seats" id="seats"></div>
+
+        <div class="rack" id="rack">
+          <div class="rack-label">
+            <span>Istaka</span>
+            <small>Taşları buraya sürükleyip bırak</small>
+          </div>
+          <div class="rack-slots" id="rackSlots"></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="scoreboard" id="scoreboard">
+      <div class="scoreboard-header">
+        <h2>Yazboz</h2>
+        <button class="ghost" id="scoreboardClose">Kapat</button>
+      </div>
+      <div class="scoreboard-body" id="scoreboardBody"></div>
+    </aside>
+
+    <div class="vote-panel" id="votePanel">
+      <div class="vote-card">
+        <div class="vote-header">
+          <h2>Elden Bitirdim</h2>
+          <p>Oyuncular onay/iptal verir.</p>
+        </div>
+        <div class="vote-list" id="voteList"></div>
+        <div class="vote-actions">
+          <button class="ghost" id="closeVote">Kapat</button>
+          <button class="primary" id="confirmAll">Tümünü Onayla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
