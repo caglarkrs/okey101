@@ -1,635 +1,608 @@
-:root {
-  color-scheme: dark;
-  --bg: #0d0f14;
-  --panel: #151a22;
-  --panel-soft: #1b212c;
-  --accent: #f5c45a;
-  --accent-strong: #ffb938;
-  --text: #f6f6f6;
-  --muted: #a5b0c3;
-  --felt: #0f3b2f;
-  --felt-glow: #1e6b55;
-  --rack: #1c1c1c;
-  --rack-edge: #343434;
-  --tile: #f7f0df;
-  --tile-shadow: rgba(0, 0, 0, 0.45);
-  --danger: #ff6b6b;
-  --success: #4ddf8a;
-  --slot: rgba(255, 255, 255, 0.08);
-  --slot-border: rgba(255, 255, 255, 0.16);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-}
-
-body {
-  background: radial-gradient(circle at top, #1a2230 0%, #0a0c11 55%, #050607 100%);
-  color: var(--text);
-  min-height: 100vh;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 32px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  gap: 24px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: radial-gradient(circle at top left, #fdf5d8, #d2a653);
-  color: #1c1c1c;
-  font-weight: 800;
-  font-size: 20px;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
-}
-
-.brand-text h1 {
-  font-size: 22px;
-}
-
-.brand-text p {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.top-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-button,
-select,
-input {
-  border: none;
-  outline: none;
-  color: inherit;
-  background: none;
-  font-size: 14px;
-}
-
-button {
-  cursor: pointer;
-  padding: 10px 16px;
-  border-radius: 999px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-button:hover {
-  transform: translateY(-1px) scale(1.01);
-}
-
-button:active {
-  transform: translateY(1px) scale(0.98);
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  color: #1a1a1a;
-  font-weight: 700;
-  box-shadow: 0 10px 20px rgba(255, 186, 56, 0.35);
-}
-
-.ghost {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.pill {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.table-wrapper {
-  flex: 1;
-  padding: 24px 32px 40px;
-  display: none;
-}
-
-.table-wrapper.active {
-  display: block;
-}
-
-.table-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.room-info h2 {
-  font-size: 20px;
-}
-
-.room-info p {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.table-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.table-surface {
-  position: relative;
-  border-radius: 32px;
-  padding: 24px;
-  background: linear-gradient(160deg, #1b232f, #0e1118 55%);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
-  overflow: hidden;
-}
-
-.felt {
-  position: relative;
-  border-radius: 28px;
-  min-height: 560px;
-  background: radial-gradient(circle at top, var(--felt-glow), var(--felt));
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.55);
-  padding: 24px;
-}
-
-.table-center {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-}
-
-.center-stack {
-  background: rgba(0, 0, 0, 0.35);
-  padding: 18px 24px;
-  border-radius: 18px;
-  text-align: center;
-  backdrop-filter: blur(6px);
-}
-
-.center-stack h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
-}
-
-.center-stack p {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.table-grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(var(--grid-cols, 14), minmax(46px, 1fr));
-  grid-template-rows: repeat(var(--grid-rows, 4), 70px);
-  gap: 10px;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.45);
-  z-index: 1;
-}
-
-.table-slot {
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px dashed rgba(255, 255, 255, 0.1);
-  display: grid;
-  place-items: center;
-  position: relative;
-}
-
-.table-slot.active {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.draw-pile {
-  position: absolute;
-  right: 28px;
-  top: 28px;
-  width: 160px;
-  padding: 16px;
-  border-radius: 18px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  display: grid;
-  gap: 10px;
-  justify-items: center;
-  z-index: 3;
-  text-align: center;
-}
-
-.stack {
-  width: 70px;
-  height: 60px;
-  position: relative;
-}
-
-.stack-top {
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  background: linear-gradient(180deg, #f5f2e8, #e2d4b7);
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.45);
-}
-
-.stack-top:nth-child(2) {
-  transform: translate(6px, -6px);
-}
-
-.stack-top:nth-child(3) {
-  transform: translate(12px, -12px);
-}
-
-.rack {
-  margin-top: 18px;
-  padding: 16px 20px 20px;
-  border-radius: 20px;
-  background: linear-gradient(140deg, #1f2022, #141416);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.5);
-}
-
-.rack-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.rack-slots {
-  display: grid;
-  grid-template-columns: repeat(14, minmax(44px, 1fr));
-  gap: 8px;
-}
-
-.rack-slot {
-  height: 70px;
-  border-radius: 14px;
-  background: linear-gradient(145deg, #121315, #1f2124);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.05), inset -2px -2px 8px rgba(0, 0, 0, 0.6);
-  position: relative;
-  display: grid;
-  place-items: center;
-}
-
-.rack-slot.highlight {
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-}
-
-.tile {
-  width: 48px;
-  height: 64px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #fff8e8, #f0dfbf);
-  box-shadow: 0 10px 18px var(--tile-shadow);
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1;
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-  transition: transform 0.2s ease;
-  position: relative;
-}
-
-.tile.dragging {
-  cursor: grabbing;
-  transform: scale(1.05);
-  z-index: 20;
-  position: fixed;
-  pointer-events: none;
-}
-
-.tile .tile-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  display: grid;
-  place-items: center;
-  box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.3);
-}
-
-.tile.ghost {
-  opacity: 0.35;
-  filter: saturate(0.6);
-  pointer-events: none;
-}
-
-.tile.red {
-  color: #e84545;
-}
-
-.tile.blue {
-  color: #3b6ef5;
-}
-
-.tile.yellow {
-  color: #f1b52c;
-}
-
-.tile.black {
-  color: #2d2d2d;
-}
-
-.tile.drop-animate {
-  animation: drop 0.3s ease;
-}
-
-@keyframes drop {
-  0% {
-    transform: scale(0.95);
-  }
-  70% {
-    transform: scale(1.07);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.seats {
-  position: absolute;
-  inset: 24px;
-  pointer-events: none;
-}
-
-.seat {
-  position: absolute;
-  background: rgba(20, 20, 25, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 10px 14px;
-  min-width: 120px;
-  text-align: center;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-}
-
-.seat span {
-  display: block;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.seat strong {
-  font-size: 14px;
-}
-
-.scoreboard {
-  position: fixed;
-  right: 24px;
-  top: 100px;
-  width: 320px;
-  max-height: 80vh;
-  background: var(--panel);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  padding: 18px;
-  display: none;
-  flex-direction: column;
-  gap: 16px;
-  z-index: 20;
-}
-
-.scoreboard.active {
-  display: flex;
-}
-
-.scoreboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.scoreboard-body {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.score-entry {
-  background: var(--panel-soft);
-  padding: 12px;
-  border-radius: 16px;
-  display: grid;
-  gap: 8px;
-}
-
-.score-entry h3 {
-  font-size: 14px;
-}
-
-.score-controls {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 8px;
-}
-
-.score-controls input {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 8px 10px;
-  width: 100%;
-}
-
-.score-controls button {
-  padding: 8px 12px;
-  border-radius: 12px;
-}
-
-.score-total {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.vote-panel {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 8, 12, 0.75);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 30;
-}
-
-.vote-panel.active {
-  display: flex;
-}
-
-.vote-card {
-  width: min(420px, 90vw);
-  background: var(--panel);
-  border-radius: 24px;
-  padding: 20px;
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
-}
-
-.vote-header p {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.vote-list {
-  display: grid;
-  gap: 12px;
-  margin: 18px 0;
-}
-
-.vote-item {
-  background: var(--panel-soft);
-  border-radius: 16px;
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-.vote-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.vote-buttons button {
-  border-radius: 12px;
-  padding: 8px 12px;
-}
-
-.vote-status {
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.lobby {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(30, 40, 60, 0.95), rgba(8, 8, 10, 0.95));
-  display: grid;
-  place-items: center;
-  z-index: 40;
-}
-
-.lobby.hidden {
-  display: none;
-}
-
-.lobby-card {
-  background: var(--panel);
-  padding: 32px;
-  border-radius: 24px;
-  width: min(420px, 92vw);
-  display: grid;
-  gap: 16px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-}
-
-.lobby-card p {
-  color: var(--muted);
-}
-
-.lobby-options {
-  display: grid;
-  gap: 12px;
-}
-
-.lobby-options label {
-  display: grid;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.lobby-options select,
-.lobby-options input {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 10px 12px;
-}
-
-@media (max-width: 1200px) {
-  .rack-slots {
-    grid-template-columns: repeat(10, minmax(40px, 1fr));
+const lobby = document.getElementById("lobby");
+const enterRoom = document.getElementById("enterRoom");
+const tableWrapper = document.getElementById("tableWrapper");
+const rackSlots = document.getElementById("rackSlots");
+const tableGrid = document.getElementById("tableGrid");
+const drawBtn = document.getElementById("drawBtn");
+const pileCount = document.getElementById("pileCount");
+const seats = document.getElementById("seats");
+const scoreboard = document.getElementById("scoreboard");
+const scoreboardBody = document.getElementById("scoreboardBody");
+const scoreboardToggle = document.getElementById("scoreboardToggle");
+const scoreboardClose = document.getElementById("scoreboardClose");
+const votePanel = document.getElementById("votePanel");
+const voteToggle = document.getElementById("voteToggle");
+const voteList = document.getElementById("voteList");
+const closeVote = document.getElementById("closeVote");
+const confirmAll = document.getElementById("confirmAll");
+const newHandBtn = document.getElementById("newHandBtn");
+const autoArrangeBtn = document.getElementById("autoArrange");
+const audioToggle = document.getElementById("audioToggle");
+const giftBtn = document.getElementById("giftBtn");
+const playerCountSelect = document.getElementById("playerCount");
+const roomNameInput = document.getElementById("roomName");
+const roomTitle = document.getElementById("roomTitle");
+const playerInfo = document.getElementById("playerInfo");
+
+const colors = ["red", "blue", "yellow", "black"];
+const players = [];
+const approvals = new Map();
+const state = {
+  pile: [],
+  rack: [],
+  table: [],
+  drag: {
+    tile: null,
+    origin: null,
+  },
+  audioOn: true,
+  currentStarter: "Sen",
+  grid: { rows: 4, cols: 14 },
+  rackSlotCount: 22,
+};
+
+const createSeats = (count) => {
+  seats.innerHTML = "";
+  players.length = 0;
+  const names = ["Sen", "Mert", "Derya", "Ece"];
+  for (let index = 0; index < count; index += 1) {
+    players.push({ name: names[index], total: 0 });
   }
 
-  .scoreboard {
-    position: static;
-    width: 100%;
-    max-height: none;
-  }
-}
+  const positions = [
+    { top: "6%", left: "50%", transform: "translate(-50%, 0)" },
+    { top: "50%", left: "92%", transform: "translate(-100%, -50%)" },
+    { top: "92%", left: "50%", transform: "translate(-50%, -100%)" },
+    { top: "50%", left: "6%", transform: "translate(0, -50%)" },
+  ];
 
-@media (max-width: 860px) {
-  .draw-pile {
-    position: static;
-    width: 100%;
-    grid-template-columns: auto 1fr;
-    justify-items: start;
+  players.forEach((player, index) => {
+    const seat = document.createElement("div");
+    seat.className = "seat";
+    seat.style.top = positions[index].top;
+    seat.style.left = positions[index].left;
+    seat.style.transform = positions[index].transform;
+    seat.innerHTML = `<strong>${player.name}</strong><span>Hazır</span>`;
+    seats.appendChild(seat);
+  });
+};
+
+const createRackSlots = (count) => {
+  rackSlots.innerHTML = "";
+  for (let i = 0; i < count; i += 1) {
+    const slot = document.createElement("div");
+    slot.className = "rack-slot";
+    slot.dataset.index = i.toString();
+    rackSlots.appendChild(slot);
+  }
+};
+
+const createTableGrid = (rows, cols) => {
+  tableGrid.innerHTML = "";
+  state.table = Array.from({ length: rows * cols }, () => null);
+  tableGrid.style.setProperty("--grid-cols", cols);
+  tableGrid.style.setProperty("--grid-rows", rows);
+
+  for (let i = 0; i < rows * cols; i += 1) {
+    const slot = document.createElement("div");
+    slot.className = "table-slot";
+    slot.dataset.index = i.toString();
+    tableGrid.appendChild(slot);
+  }
+};
+
+const buildTile = (tile) => {
+  const tileElement = document.createElement("div");
+  tileElement.className = `tile ${tile.color}`;
+  tileElement.dataset.id = tile.id;
+  tileElement.innerHTML = `<div class="tile-inner">${tile.number}</div>`;
+  return tileElement;
+};
+
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
+const createFullSet = () => {
+  const tiles = [];
+  let id = 0;
+  for (let i = 0; i < 106; i += 1) {
+    const number = (i % 13) + 1;
+    const color = colors[i % colors.length];
+    tiles.push({ id: `tile-${id += 1}`, number, color });
+  }
+  return shuffle(tiles);
+};
+
+const dealTiles = () => {
+  state.pile = createFullSet();
+  const starter = state.currentStarter;
+  const starterCount = 22;
+  const otherCount = 21;
+  const rackTiles = [];
+
+  players.forEach((player) => {
+    const count = player.name === starter ? starterCount : otherCount;
+    const draw = state.pile.splice(0, count);
+    if (player.name === "Sen") {
+      rackTiles.push(...draw);
+    }
+  });
+
+  state.rackSlotCount = starterCount;
+  state.rack = Array.from({ length: state.rackSlotCount }, (_, index) => rackTiles[index] || null);
+  pileCount.textContent = state.pile.length;
+  renderRack();
+  renderTable();
+};
+
+const renderRack = () => {
+  createRackSlots(state.rackSlotCount);
+  const slots = Array.from(rackSlots.children);
+  state.rack.forEach((tile, index) => {
+    if (tile) {
+      const tileElement = buildTile(tile);
+      slots[index].appendChild(tileElement);
+    }
+  });
+};
+
+const renderTable = () => {
+  const slots = Array.from(tableGrid.children);
+  slots.forEach((slot, index) => {
+    slot.innerHTML = "";
+    const tile = state.table[index];
+    if (tile) {
+      slot.appendChild(buildTile(tile));
+    }
+  });
+};
+
+const updateScoreboard = () => {
+  scoreboardBody.innerHTML = "";
+  players.forEach((player, index) => {
+    const entry = document.createElement("div");
+    entry.className = "score-entry";
+    entry.innerHTML = `
+      <h3>${player.name}</h3>
+      <div class="score-controls">
+        <input type="number" min="0" placeholder="Puan" data-player="${index}" />
+        <button class="primary" data-action="add" data-player="${index}">+ Ekle</button>
+        <button class="ghost" data-action="sub" data-player="${index}">- Çıkar</button>
+      </div>
+      <div class="score-total">Toplam: <span>${player.total}</span></div>
+    `;
+    scoreboardBody.appendChild(entry);
+  });
+};
+
+const bindScoreboardEvents = () => {
+  scoreboardBody.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLButtonElement)) return;
+    const playerIndex = Number(target.dataset.player);
+    const action = target.dataset.action;
+    const input = scoreboardBody.querySelector(
+      `input[data-player="${playerIndex}"]`
+    );
+    const value = Number(input.value || 0);
+    if (!value) return;
+    if (action === "add") {
+      players[playerIndex].total += value;
+    } else {
+      players[playerIndex].total -= value;
+    }
+    input.value = "";
+    updateScoreboard();
+  });
+};
+
+const setupVoting = () => {
+  voteList.innerHTML = "";
+  approvals.clear();
+
+  players.forEach((player, index) => {
+    approvals.set(index, "Bekliyor");
+    const item = document.createElement("div");
+    item.className = "vote-item";
+    item.innerHTML = `
+      <div>
+        <strong>${player.name}</strong>
+        <div class="vote-status" id="vote-status-${index}">Bekliyor</div>
+      </div>
+      <div class="vote-buttons">
+        <button class="primary" data-vote="approve" data-player="${index}">Onay</button>
+        <button class="ghost" data-vote="reject" data-player="${index}">İptal</button>
+      </div>
+    `;
+    voteList.appendChild(item);
+  });
+};
+
+const updateVoteStatus = (index, status) => {
+  approvals.set(index, status);
+  const statusNode = document.getElementById(`vote-status-${index}`);
+  if (statusNode) {
+    statusNode.textContent = status;
+    statusNode.style.color =
+      status === "Onay" ? "var(--success)" : status === "İptal" ? "var(--danger)" : "var(--muted)";
+  }
+};
+
+const enableNewHand = () => {
+  const allApproved = Array.from(approvals.values()).every(
+    (status) => status === "Onay"
+  );
+  newHandBtn.disabled = !allApproved;
+  newHandBtn.classList.toggle("primary", allApproved);
+};
+
+const handleVoteClick = (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLButtonElement)) return;
+  const vote = target.dataset.vote;
+  const playerIndex = Number(target.dataset.player);
+  if (!vote) return;
+  updateVoteStatus(playerIndex, vote === "approve" ? "Onay" : "İptal");
+  enableNewHand();
+};
+
+const resetVote = () => {
+  setupVoting();
+  enableNewHand();
+};
+
+const getClosestSlotIndex = (slots, x, y, onlyEmpty = false) => {
+  let closestIndex = null;
+  let distance = Infinity;
+  slots.forEach((slot, index) => {
+    if (onlyEmpty && slot.firstChild) return;
+    const rect = slot.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const dist = Math.hypot(centerX - x, centerY - y);
+    if (dist < distance) {
+      distance = dist;
+      closestIndex = index;
+    }
+  });
+  return { index: closestIndex, distance };
+};
+
+const findNearestEmptyTableSlot = (x, y) => {
+  const slots = Array.from(tableGrid.children);
+  const { index } = getClosestSlotIndex(slots, x, y, true);
+  return index;
+};
+
+const findTileById = (tileId) => {
+  return state.rack.find((item) => item?.id === tileId) || state.table.find((item) => item?.id === tileId);
+};
+
+const findRackIndex = (tileId) => state.rack.findIndex((item) => item?.id === tileId);
+
+const findFirstEmptyRackSlot = () => state.rack.findIndex((item) => !item);
+
+const placeTileInRack = (tile, targetIndex) => {
+  const currentIndex = findRackIndex(tile.id);
+  if (targetIndex === null) return;
+  const nextRack = [...state.rack];
+
+  if (currentIndex === -1) {
+    nextRack[targetIndex] = tile;
+  } else {
+    const temp = nextRack[targetIndex];
+    nextRack[targetIndex] = tile;
+    nextRack[currentIndex] = temp || null;
   }
 
-  .rack-slots {
-    grid-template-columns: repeat(7, minmax(36px, 1fr));
-  }
-}
+  state.rack = nextRack;
+  state.table = state.table.map((item) => (item?.id === tile.id ? null : item));
+  renderRack();
+  renderTable();
+};
 
-@media (max-width: 720px) {
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .table-actions {
-    width: 100%;
-    justify-content: space-between;
+const placeTileOnTable = (tile, slotIndex) => {
+  if (slotIndex === null) return;
+  const tableTiles = [...state.table];
+  const currentIndex = tableTiles.findIndex((item) => item?.id === tile.id);
+  if (currentIndex !== -1) {
+    tableTiles[currentIndex] = null;
   }
 
-  .tile {
-    width: 42px;
-    height: 58px;
+  const rackIndex = findRackIndex(tile.id);
+  if (rackIndex !== -1) {
+    state.rack[rackIndex] = null;
   }
 
-  .rack-slot {
-    height: 64px;
+  tableTiles[slotIndex] = tile;
+  state.table = tableTiles;
+  renderRack();
+  renderTable();
+};
+
+const returnTileToRack = (tile) => {
+  const currentIndex = findRackIndex(tile.id);
+  const emptyIndex = findFirstEmptyRackSlot();
+  if (currentIndex === -1 && emptyIndex !== -1) {
+    state.rack[emptyIndex] = tile;
+    state.table = state.table.map((item) => (item?.id === tile.id ? null : item));
   }
-}
+  renderRack();
+  renderTable();
+};
+
+const setHoverSlot = (slot) => {
+  document.querySelectorAll(".rack-slot, .table-slot").forEach((el) => {
+    el.classList.remove("highlight");
+    el.classList.remove("active");
+  });
+  if (slot) {
+    slot.classList.add(slot.classList.contains("rack-slot") ? "highlight" : "active");
+  }
+};
+
+const addGhostToOrigin = (tileElement) => {
+  const originSlot = tileElement.parentElement;
+  if (!originSlot || !originSlot.classList.contains("rack-slot")) return;
+  const ghost = tileElement.cloneNode(true);
+  ghost.classList.add("ghost");
+  ghost.dataset.ghost = "true";
+  originSlot.appendChild(ghost);
+};
+
+const removeGhosts = () => {
+  document.querySelectorAll(".tile.ghost").forEach((ghost) => ghost.remove());
+};
+
+const startDrag = (tileElement, event) => {
+  const tileId = tileElement.dataset.id;
+  const tile = findTileById(tileId);
+  if (!tile) return;
+  state.drag.tile = tile;
+  state.drag.origin = tileElement.parentElement;
+  tileElement.classList.add("dragging");
+  addGhostToOrigin(tileElement);
+  tileElement.setPointerCapture(event.pointerId);
+  moveDraggedTile(tileElement, event.clientX, event.clientY);
+};
+
+const moveDraggedTile = (tileElement, x, y) => {
+  tileElement.style.left = `${x - tileElement.offsetWidth / 2}px`;
+  tileElement.style.top = `${y - tileElement.offsetHeight / 2}px`;
+};
+
+const endDrag = (tileElement, event) => {
+  const dropTarget = document.elementFromPoint(event.clientX, event.clientY);
+  const rackSlot = dropTarget?.closest(".rack-slot");
+  const tableSlot = dropTarget?.closest(".table-slot");
+
+  if (rackSlot) {
+    const targetIndex = Number(rackSlot.dataset.index);
+    placeTileInRack(state.drag.tile, targetIndex);
+  } else if (tableSlot) {
+    const tableIndex = Number(tableSlot.dataset.index);
+    const emptyIndex = state.table[tableIndex]
+      ? findNearestEmptyTableSlot(event.clientX, event.clientY)
+      : tableIndex;
+    if (emptyIndex === null) {
+      returnTileToRack(state.drag.tile);
+    } else {
+      placeTileOnTable(state.drag.tile, emptyIndex);
+    }
+  } else {
+    returnTileToRack(state.drag.tile);
+  }
+
+  tileElement.classList.remove("dragging");
+  tileElement.style.left = "";
+  tileElement.style.top = "";
+  state.drag.tile = null;
+  state.drag.origin = null;
+  removeGhosts();
+  setHoverSlot(null);
+};
+
+const handlePointerMove = (event) => {
+  if (!state.drag.tile) return;
+  const tileElement = document.querySelector(".tile.dragging");
+  if (!tileElement) return;
+  moveDraggedTile(tileElement, event.clientX, event.clientY);
+  const hovered = document.elementFromPoint(event.clientX, event.clientY);
+  const slot = hovered?.closest(".rack-slot, .table-slot");
+  setHoverSlot(slot);
+};
+
+const handlePointerUp = (event) => {
+  if (!state.drag.tile) return;
+  const tileElement = document.querySelector(".tile.dragging");
+  if (!tileElement) return;
+  endDrag(tileElement, event);
+};
+
+const bindDragEvents = () => {
+  document.addEventListener("pointerdown", (event) => {
+    const tile = event.target.closest(".tile");
+    if (!tile || tile.dataset.ghost) return;
+    startDrag(tile, event);
+  });
+
+  document.addEventListener("pointermove", handlePointerMove);
+  document.addEventListener("pointerup", handlePointerUp);
+};
+
+const drawFromPile = () => {
+  const tile = state.pile.shift();
+  if (!tile) return;
+  const emptyIndex = findFirstEmptyRackSlot();
+  if (emptyIndex === -1) {
+    state.rack.push(tile);
+    state.rackSlotCount += 1;
+  } else {
+    state.rack[emptyIndex] = tile;
+  }
+  pileCount.textContent = state.pile.length;
+  renderRack();
+};
+
+const groupRuns = (tiles) => {
+  const runs = [];
+  const groupedByColor = colors.reduce((acc, color) => {
+    acc[color] = tiles.filter((tile) => tile.color === color).sort((a, b) => a.number - b.number);
+    return acc;
+  }, {});
+
+  Object.values(groupedByColor).forEach((group) => {
+    let current = [];
+    group.forEach((tile, index) => {
+      if (!current.length || tile.number === group[index - 1].number + 1) {
+        current.push(tile);
+      } else {
+        if (current.length >= 3) runs.push(current);
+        current = [tile];
+      }
+    });
+    if (current.length >= 3) runs.push(current);
+  });
+
+  return runs;
+};
+
+const groupSets = (tiles) => {
+  const sets = [];
+  const byNumber = tiles.reduce((acc, tile) => {
+    acc[tile.number] = acc[tile.number] || [];
+    acc[tile.number].push(tile);
+    return acc;
+  }, {});
+
+  Object.values(byNumber).forEach((group) => {
+    const uniqueColors = [];
+    group.forEach((tile) => {
+      if (!uniqueColors.some((item) => item.color === tile.color)) uniqueColors.push(tile);
+    });
+    if (uniqueColors.length >= 3) sets.push(uniqueColors.slice(0, 4));
+  });
+  return sets;
+};
+
+const autoArrange = () => {
+  const tiles = state.rack.filter(Boolean);
+  const used = new Set();
+  const layout = [];
+
+  groupRuns(tiles).forEach((run) => {
+    run.forEach((tile) => used.add(tile.id));
+    layout.push(run);
+  });
+
+  const remaining = tiles.filter((tile) => !used.has(tile.id));
+  groupSets(remaining).forEach((set) => {
+    set.forEach((tile) => used.add(tile.id));
+    layout.push(set);
+  });
+
+  const leftovers = tiles.filter((tile) => !used.has(tile.id));
+  if (leftovers.length) {
+    layout.push(leftovers);
+  }
+
+  const totalSlots = state.grid.rows * state.grid.cols;
+  const tableTiles = Array.from({ length: totalSlots }, () => null);
+  let cursor = 0;
+
+  layout.forEach((group) => {
+    group.forEach((tile) => {
+      if (cursor < totalSlots) {
+        tableTiles[cursor] = tile;
+        cursor += 1;
+      }
+    });
+    if (cursor % state.grid.cols !== 0) {
+      cursor += state.grid.cols - (cursor % state.grid.cols);
+    }
+  });
+
+  state.table = tableTiles;
+  const usedOnTable = new Set(tableTiles.filter(Boolean).map((tile) => tile.id));
+  state.rack = state.rack.map((tile) => (tile && !usedOnTable.has(tile.id) ? tile : null));
+  renderRack();
+  renderTable();
+};
+
+const setupLobby = () => {
+  enterRoom.addEventListener("click", () => {
+    const count = Number(playerCountSelect.value);
+    const roomName = roomNameInput.value.trim() || "Premium 101 Masası";
+    roomTitle.textContent = roomName;
+    playerInfo.textContent = `${count} oyuncu`;
+    createSeats(count);
+    createTableGrid(state.grid.rows, state.grid.cols);
+    dealTiles();
+    updateScoreboard();
+    setupVoting();
+    tableWrapper.classList.add("active");
+    lobby.classList.add("hidden");
+  });
+};
+
+const setupActions = () => {
+  scoreboardToggle.addEventListener("click", () => {
+    scoreboard.classList.toggle("active");
+  });
+  scoreboardClose.addEventListener("click", () => {
+    scoreboard.classList.remove("active");
+  });
+  voteToggle.addEventListener("click", () => {
+    votePanel.classList.add("active");
+  });
+  closeVote.addEventListener("click", () => {
+    votePanel.classList.remove("active");
+  });
+  voteList.addEventListener("click", handleVoteClick);
+  confirmAll.addEventListener("click", () => {
+    players.forEach((_, index) => updateVoteStatus(index, "Onay"));
+    enableNewHand();
+  });
+  newHandBtn.addEventListener("click", () => {
+    dealTiles();
+    resetVote();
+  });
+  autoArrangeBtn.addEventListener("click", autoArrange);
+  drawBtn.addEventListener("click", drawFromPile);
+  audioToggle.addEventListener("click", () => {
+    state.audioOn = !state.audioOn;
+    audioToggle.textContent = `Sesli Sohbet: ${state.audioOn ? "Açık" : "Kapalı"}`;
+  });
+  giftBtn.addEventListener("click", () => {
+    giftBtn.textContent = "Hediye Gönderildi";
+    setTimeout(() => (giftBtn.textContent = "Hediye Gönder"), 1600);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key.toLowerCase() === "y") {
+      scoreboard.classList.toggle("active");
+    }
+    if (event.key.toLowerCase() === "v") {
+      votePanel.classList.toggle("active");
+    }
+    if (event.key.toLowerCase() === "n") {
+      dealTiles();
+      resetVote();
+    }
+  });
+};
+
+const init = () => {
+  setupLobby();
+  setupActions();
+  bindScoreboardEvents();
+  bindDragEvents();
+  enableNewHand();
+};
+
+init();
