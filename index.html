@@ -51,7 +51,8 @@
           <p><span id="playerInfo">4 oyuncu</span> · Giriş 50 altın · Ödül 200 altın</p>
         </div>
         <div class="table-actions">
-          <button class="ghost" id="voteToggle">Elden Bitirdim</button>
+          <button class="ghost" id="autoArrange">Eli Aç</button>
+          <button class="ghost" id="voteToggle">Oylama</button>
           <button class="ghost" id="newHandBtn">Yeni El Dağıt</button>
         </div>
       </div>
@@ -61,10 +62,19 @@
           <div class="table-center">
             <div class="center-stack">
               <h3>Oyun Alanı</h3>
-              <p>Taşları buraya sürükleyip diz.</p>
+              <p>Taşları grid üzerine diz, perlerini oluştur.</p>
             </div>
           </div>
-          <div class="table-dropzone" id="tableDropzone"></div>
+          <div class="table-grid" id="tableGrid"></div>
+          <div class="draw-pile" id="drawPile">
+            <div class="stack">
+              <span class="stack-top"></span>
+              <span class="stack-top"></span>
+              <span class="stack-top"></span>
+            </div>
+            <button class="primary" id="drawBtn">Ortadan Çek</button>
+            <small>Kalan taş: <span id="pileCount">0</span></small>
+          </div>
         </div>
 
         <div class="seats" id="seats"></div>
@@ -72,7 +82,7 @@
         <div class="rack" id="rack">
           <div class="rack-label">
             <span>Istaka</span>
-            <small>Taşları buraya sürükleyip bırak</small>
+            <small>Taşları sürükleyerek yeniden sırala</small>
           </div>
           <div class="rack-slots" id="rackSlots"></div>
         </div>
